@@ -5,10 +5,10 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import androidx.annotation.NonNull;
-
 // Implements this interface to receive information about changes to the surface.
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+
+    private MainThread thread;
 
     /**
      *  GamePanel allows access to application-specific resources and classes,
@@ -30,6 +30,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // getHolder() has a callback method which intercepts events.
         getHolder().addCallback(this);
 
+        thread = new MainThread(getHolder(), this);
+
         // setFocusable makes GamePanel focus on handling events.
         setFocusable(true);
 
@@ -41,7 +43,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
      * @param holder
      */
     @Override
-    public void surfaceCreated(@NonNull SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder holder) {
 
     }
 
@@ -53,8 +55,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
      * @param height
      */
     @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        // Starts game loop.
+        thread.setActive(true);
+        thread.start();
     }
 
     /**
@@ -63,7 +67,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
      * @param holder
      */
     @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        boolean retry = true;
+
+        while (retry){
+
+            /**
+             * join method used to hold the execution of currently running thread until
+             * the specified thread is terminated (finished execution).
+             */
+            try{
+                thread.setActive(false);
+                thread.join();
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -75,5 +94,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event){
         return super.onTouchEvent(event);
+    }
+
+    public void update() {
     }
 }
