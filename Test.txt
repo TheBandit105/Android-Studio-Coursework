@@ -1,0 +1,1 @@
+This is a text file. The contents of this file and the file itself should appear if the commit worked correctly to the repository.
