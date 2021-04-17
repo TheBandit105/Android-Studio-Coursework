@@ -2,9 +2,9 @@ package com.shavin.spaceinvaders;
 
 import android.graphics.Canvas;
 
-public class Laser {
+public class Gem {
 
-    public Laser(){}
+    public Gem(){}
 
     public void update(){}
 
