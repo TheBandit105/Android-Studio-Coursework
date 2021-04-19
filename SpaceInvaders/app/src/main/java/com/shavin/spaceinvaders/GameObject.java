@@ -32,7 +32,6 @@ public abstract class GameObject {
     public void setY(int y) {
         this.y = y;
     }
-
     public int getY() {
         return y;
     }
@@ -41,7 +40,6 @@ public abstract class GameObject {
     public int getHeight() {
         return height;
     }
-
     public int getWidth() {
         return width;
     }

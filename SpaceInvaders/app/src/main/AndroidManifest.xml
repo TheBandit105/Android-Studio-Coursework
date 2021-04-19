@@ -11,13 +11,18 @@
         android:theme="@style/Theme.SpaceInvaders">
         <activity
             android:screenOrientation="landscape"
-            android:name=".MainActivity">
+            android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="SpaceInvaders"
+            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>
